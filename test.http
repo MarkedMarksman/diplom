@@ -1,0 +1,200 @@
+###Регистрация покупателя
+POST http://127.0.0.1:8000/user/register
+Content-Type: application/json
+
+{
+  "full_name": "Nikita" ,
+  "username" : "Moro",
+  "email": "admin@admin", 
+  "password": "*****",
+  "company": "Мобильный салон №1",
+  "position": "Админстратор склада"
+}
+
+###Подтверждение почты пользователя
+POST http://127.0.0.1:8000/user/register/confirm
+Content-Type: application/json
+
+{  
+  "email": "admin@admin",  
+  "token": ""
+}
+
+###Восстановление пароля пользователя
+POST http://127.0.0.1:8000/user/password_reset
+Authorization: Token 
+Content-Type: application/json
+
+{
+  "email":"admin@admin"
+}
+
+###Подтверждение сброса пароля
+POST http://127.0.0.1:8000/user/password_reset/confirm
+Content-Type: application/json
+
+{
+  "email":"admin@admin",
+  "password":"krokmadame2",
+  "token":""
+}
+
+###Авторизация пользователя
+POST http://127.0.0.1:8000/user/login
+Content-Type: application/json
+
+{  
+  "email":"admin@admin",
+  "password":"eraser2023"
+}
+
+
+### Обновление прайса
+POST http://127.0.0.1:8000/partner/update
+Content-Type: application/json
+Authorization: Token 
+
+{ 
+  "url":"https://raw.githubusercontent.com/netology-code/python-final-diplom/master/data/shop1.yaml"
+}
+
+
+### Данные пользователя
+GET http://127.0.0.1:8000/user/details
+Authorization: Token 
+Content-Type: application/json
+
+
+###Просмотр каталога продуктов магазина
+GET http://127.0.0.1:8000/shops/
+Content-Type: application/json
+
+###Просмотр категорий
+GET http://127.0.0.1:8000/categories/
+Content-Type: application/json
+
+###Просмотр продуктов\
+GET http://127.0.0.1:8000/products/
+Content-Type: application/json
+
+
+##Просмотр карточки определенного продукта
+GET http://127.0.0.1:8000/products/1
+Content-Type: application/json
+
+###Просмотр корзины 
+GET  http://127.0.0.1:8000/basket
+Content-Type: application/json
+Authorization: Token 
+
+###Добавление продуктов в заказ
+POST   http://127.0.0.1:8000/basket
+Content-Type: application/json
+Authorization: Token 
+
+{
+  "items":[
+    {
+          "product_info": 1,
+          "quantity":4
+        }
+    ]
+}
+
+###Редактирование корзины
+PUT   http://127.0.0.1:8000/basket
+Content-Type: application/json
+Authorization: Token 
+
+{
+  "items":[
+    {
+          "product_info": 1,
+          "quantity":10
+        }
+    ]
+}
+
+###Удаление товара из корзины
+DELETE    http://127.0.0.1:8000/basket
+Content-Type: application/json
+Authorization: Token 
+
+{
+  "items":"16"
+}
+
+
+
+### Размещение заказа
+POST  http://localhost:8000/order
+Content-Type: application/json
+Authorization: Token 
+
+  {
+    "id": "3",
+    "ordered_items": [
+      {
+        "id": 18,
+        "product_info": {
+          "id": 1,
+          "model": "apple/iphone/xs-max",
+          "product": {
+            "name": "Смартфон Apple iPhone XS Max 512GB (золотистый)",
+            "category": "Смартфоны"
+          },
+          "shop": 1,
+          "quantity": 14,
+          "price": 110000,
+          "price_rrc": 116990,
+          "product_parameters": [
+            {
+              "parameter": "Диагональ (дюйм)",
+              "value": "6.5"
+            },
+            {
+              "parameter": "Разрешение (пикс)",
+              "value": "2688x1242"
+            },
+            {
+              "parameter": "Встроенная память (Гб)",
+              "value": "512"
+            },
+            {
+              "parameter": "Цвет",
+              "value": "золотистый"
+            }
+          ]
+        },
+        "quantity": 4
+      }
+    ],
+    "status": "basket",
+    "dt": "2023-11-13T21:42:51.897308+03:00",
+    "total_sum": 440000,
+    "contact": null
+  }
+
+
+
+###Получение статуса заказов 
+GET http://127.0.0.1:8000/partner/state
+Content-Type: application/json
+Authorization: Token 
+
+
+###Включение и отключение магазина
+POST http://127.0.0.1:8000/partner/state
+Authorization: Token 
+Content-Type: application/json
+
+{
+  "state": "False"
+}
+
+
+###Просмотр заказов поставщиками
+GET http://127.0.0.1:8000/partner/orders
+Authorization: Token 
+
+

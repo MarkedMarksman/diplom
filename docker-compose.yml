@@ -1,0 +1,41 @@
+version: '3.10'
+
+services:
+  django:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgdb
+      - redis
+      - celery
+    restart: always
+
+  pgdb:
+    image: postgres
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Pereira20089O
+      - POSTGRES_DB=new_api_db
+
+  celery:
+    build: .
+    restart: always
+    command: celery -A api_orders worker --pool=solo -l info
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
