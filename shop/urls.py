@@ -2,7 +2,7 @@ from django.urls import path, include
 from django_rest_passwordreset.views import reset_password_request_token, reset_password_confirm
 from rest_framework import routers
 from django.http import JsonResponse
-from django.contrib import admin
+from baton.autodiscover import admin
 from api_orders.views import (
     CategoryView,
     ShopView,
@@ -19,6 +19,7 @@ from api_orders.views import (
     PartnerUpdate
 )
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+
 def api_home(request):
     data = {
         "message": "Welcome to the API",
@@ -39,6 +40,7 @@ router.register(r'products', ProductInfoView, basename='products')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('baton/', include('baton.urls')),
     path('partner/update', PartnerUpdate.as_view(), name='partner-update'),
     path('partner/state', PartnerState.as_view(), name='partner-state'),
     path('partner/orders', PartnerOrders.as_view(), name='partner-orders'),
