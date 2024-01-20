@@ -22,6 +22,8 @@ from .serializers import CategorySerializer, ShopSerializer, ProductInfoSerializ
 from .tasks import import_shop_data
 from .signals import new_user_registered, new_order
 from drf_spectacular.utils import extend_schema
+from django.shortcuts import render
+
 
 class RegisterAccount(APIView):
     """
@@ -64,6 +66,8 @@ class RegisterAccount(APIView):
         new_user_registered.send(sender=self.__class__, user_id=user.id)
         return JsonResponse({'Status': True})
 
+def auth(request):
+    return render(request, 'oauth.html')
 
 class ConfirmAccount(APIView):
     """

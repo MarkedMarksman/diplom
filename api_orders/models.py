@@ -4,6 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django_rest_passwordreset.tokens import get_token_generator
 
+
 STATUS_CHOICES = (
     ('basket', 'Статус корзины'),
     ('new', 'Новый'),
@@ -49,13 +50,14 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
+def get_upload_path(instance, filename):
+    return os.path.join('images','avatars',str(instance.pk), filename)
 
 class User(AbstractUser):
     """
     Стандартная модель пользователей
     """
     objects = UserManager()
-    # user_avatar = ThumbnailerImageField(upload_to='photos', blank=True)
     full_name = models.CharField(max_length=160,blank=True,null=True)
     email = models.EmailField(verbose_name='Email', max_length=40, unique=True)
     company = models.CharField(verbose_name='Компания', max_length=40, blank=True, null=True)
@@ -262,3 +264,7 @@ class OrderItem(models.Model):
     def save(self, *args, **kwargs):
         self.total_amount = self.price * self.quantity
         super(OrderItem, self).save(*args, **kwargs)
+        
+        
+def get_upload_path(instance, filename):
+    return os.path.join('images','avatars',str(instance.pk), filename)

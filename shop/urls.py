@@ -16,7 +16,8 @@ from api_orders.views import (
     RegisterAccount,
     PartnerOrders,
     PartnerState,
-    PartnerUpdate
+    PartnerUpdate,
+    auth
 )
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
@@ -41,8 +42,8 @@ router.register(r'products', ProductInfoView, basename='products')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
-    path('auth/', include('rest_framework_social_oauth2.urls')),
-    
+    path('', include('social_django.urls',namespace='social')),
+    path('auth/', auth),
     path('partner/update', PartnerUpdate.as_view(), name='partner-update'),
     path('partner/state', PartnerState.as_view(), name='partner-state'),
     path('partner/orders', PartnerOrders.as_view(), name='partner-orders'),

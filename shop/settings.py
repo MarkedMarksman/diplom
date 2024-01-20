@@ -29,9 +29,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_celery_results',
     'django_celery_beat',
-    'oauth2_provider',
-	'social_django',
-	'rest_framework_social_oauth2',
+    'social_django',
     'baton.autodiscover'
 ]
 
@@ -50,7 +48,7 @@ ROOT_URLCONF = 'shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,6 +56,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -149,8 +148,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-		'rest_framework_social_oauth2.authentication.SocialAuthentication'
     ),
 
     'DEFAULT_THROTTLE_CLASSES': [
@@ -231,17 +228,11 @@ BATON = {
 #SOCIAL-AUTH
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.vk.VKOAuth2',
-	'rest_framework_social_oauth2.backends.DjangoOAuth2',
-	'django.contrib.auth.backends.ModelBackend'
+    'social_core.backends.github.GithubOAuth2',          
+    'django.contrib.auth.backends.ModelBackend', 
 )
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = ''
-SOCIAL_AUTH_VK_OAUTH2_SECRET = ''
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
-#EASY_THUMBNAILS
-THUMBNAIL_ALIASES = {
-    '': {
-        'avatar': {'size': (50, 50), 'crop': True},
-    },
-}
+SOCIAL_AUTH_GITHUB_KEY = 'bb68bd856a03a3bd9522'
+SOCIAL_AUTH_GITHUB_SECRET = 'e00d51eaf60484bd960ae7b0685698ed2fd28b4b'

@@ -6,7 +6,7 @@ import requests
 from shop.celery import app
 from yaml import load as load_yaml, Loader
 from .models import User, Shop, Category, Product, ProductInfo, Parameter, ProductParameter, ConfirmEmailToken
-    
+
 
 
 
@@ -48,6 +48,8 @@ def import_shop_data(partner_id, url):
                                             parameter_id=parameter_object.id,
                                             value=value)
             
-# @app.task()
-
-# get_user_image()
+@app.task()
+def get_user_image(request):
+    if request.method == 'POST':
+        form = UploadFile.obje
+    requests.FILES()

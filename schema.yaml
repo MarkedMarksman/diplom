@@ -4,6 +4,83 @@ info:
   version: 1.0.0
   description: python-final-diplom
 paths:
+  /auth/convert-token/:
+    post:
+      operationId: auth_convert_token_create
+      description: |-
+        Implements an endpoint to convert a provider token to an access token
+
+        The endpoint is used in the following flows:
+
+        * Authorization code
+        * Client credentials
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/disconnect-backend/:
+    post:
+      operationId: auth_disconnect_backend_create
+      description: An endpoint for disconnect social auth backend providers such as
+        Facebook.
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /auth/invalidate-sessions/:
+    post:
+      operationId: auth_invalidate_sessions_create
+      tags:
+      - auth
+      responses:
+        '200':
+          description: No response body
+  /auth/revoke-token/:
+    post:
+      operationId: auth_revoke_token_create
+      description: Implements an endpoint to revoke access or refresh tokens
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /auth/token/:
+    post:
+      operationId: auth_token_create
+      description: |-
+        Implements an endpoint to provide access tokens
+
+        The endpoint is used in the following flows:
+
+        * Authorization code
+        * Password
+        * Client credentials
+      tags:
+      - auth
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
   /basket:
     get:
       operationId: basket_retrieve
@@ -1144,6 +1221,9 @@ components:
       type: apiKey
       in: cookie
       name: sessionid
+    oauth2:
+      type: oauth2
+      flows: {}
     tokenAuth:
       type: apiKey
       in: header
