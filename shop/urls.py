@@ -41,6 +41,8 @@ router.register(r'products', ProductInfoView, basename='products')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('baton/', include('baton.urls')),
+    path('auth/', include('rest_framework_social_oauth2.urls')),
+    
     path('partner/update', PartnerUpdate.as_view(), name='partner-update'),
     path('partner/state', PartnerState.as_view(), name='partner-state'),
     path('partner/orders', PartnerOrders.as_view(), name='partner-orders'),
@@ -55,7 +57,7 @@ urlpatterns = [
     
     path('basket', BasketView.as_view(), name='basket'),
     path('order', OrderView.as_view(), name='order'),
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
     path('api/v1/', api_home, name='api-home'),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+# from easy_thumbnails_rest.serializers import ThumbnailerSerializer
 
 from .models import (
     Category,
@@ -23,11 +24,12 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # user_avatar = ThumbnailerSerializer(alias='avatar')
     contacts = ContactSerializer(read_only=True, many=True)
 
     class Meta:
         model = User
-        fields = ('id','full_name','email', 'company', 'position', 'type', 'contacts')
+        fields = ('id', 'full_name','email', 'company', 'position', 'type', 'contacts')
         read_only_fields = ('id',)
 
 

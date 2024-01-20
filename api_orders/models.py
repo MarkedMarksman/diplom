@@ -55,6 +55,7 @@ class User(AbstractUser):
     Стандартная модель пользователей
     """
     objects = UserManager()
+    # user_avatar = ThumbnailerImageField(upload_to='photos', blank=True)
     full_name = models.CharField(max_length=160,blank=True,null=True)
     email = models.EmailField(verbose_name='Email', max_length=40, unique=True)
     company = models.CharField(verbose_name='Компания', max_length=40, blank=True, null=True)

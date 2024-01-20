@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'django_celery_results',
     'django_celery_beat',
+    'oauth2_provider',
+	'social_django',
+	'rest_framework_social_oauth2',
     'baton.autodiscover'
 ]
 
@@ -146,6 +149,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+		'rest_framework_social_oauth2.authentication.SocialAuthentication'
     ),
 
     'DEFAULT_THROTTLE_CLASSES': [
@@ -221,4 +226,22 @@ BATON = {
             { 'type': 'free', 'label': 'Another custom link', 'url': 'http://www.google.it' },
         ] },
     ),
+}
+
+#SOCIAL-AUTH
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+	'rest_framework_social_oauth2.backends.DjangoOAuth2',
+	'django.contrib.auth.backends.ModelBackend'
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = ''
+SOCIAL_AUTH_VK_OAUTH2_SECRET = ''
+
+#EASY_THUMBNAILS
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (50, 50), 'crop': True},
+    },
 }

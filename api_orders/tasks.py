@@ -47,3 +47,7 @@ def import_shop_data(partner_id, url):
             ProductParameter.objects.create(product_info_id=product_info.id,
                                             parameter_id=parameter_object.id,
                                             value=value)
+            
+# @app.task()
+
+# get_user_image()
