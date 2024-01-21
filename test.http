@@ -44,8 +44,8 @@ POST http://127.0.0.1:8000/user/login
 Content-Type: application/json
 
 {  
-  "email":"admin@admin",
-  "password":"eraser2023"
+  "email":"reymoro@bk.ru",
+  "password":"Pereira20089O!"
 }
 
 
@@ -196,5 +196,7 @@ Content-Type: application/json
 ###Просмотр заказов поставщиками
 GET http://127.0.0.1:8000/partner/orders
 Authorization: Token 
+
+
 
 

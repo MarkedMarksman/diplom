@@ -2,13 +2,15 @@ from django.dispatch import receiver, Signal
 from django_rest_passwordreset.signals import reset_password_token_created
 
 from .models import ConfirmEmailToken, User
-
+from .forms import UserAvatar
 
 from .tasks import send_email
 
 new_user_registered = Signal('user_id')
 
 new_order = Signal('user_id')
+
+avatar_upload = Signal('user_id')
 
 
 @receiver(reset_password_token_created)
@@ -51,3 +53,17 @@ def new_order_signal(user_id, **kwargs):
     message = 'Заказ сформирован'
     email = user.email
     send_email.apply_async((title, message, email), countdown=60)
+    
+@receiver(avatar_upload)
+def upload_avatar(request,**kwargs):
+    if request.method == 'POST':
+        form = UserAvatar(request.POST, request.FILES)
+        if form.is_valid():
+            
+            apply_async.form.save()
+        else:
+            context = {'form':UserAvatar()}
+            return apply_async.render(request,'upload_avatar.html', context)
+    context = {'form':UserAvatar()}
+    return apply_async((render(request,'upload_avatar.html', context),countdown))
+

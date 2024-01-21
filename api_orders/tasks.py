@@ -4,11 +4,12 @@ from shop.settings import EMAIL_HOST_USER
 from django.core.mail import EmailMultiAlternatives
 import requests
 from shop.celery import app
+from celery import shared_task
 from yaml import load as load_yaml, Loader
 from .models import User, Shop, Category, Product, ProductInfo, Parameter, ProductParameter, ConfirmEmailToken
-
-
-
+from .forms import UserAvatar
+from django.shortcuts import render
+from time import sleep
 
 @app.task()
 def send_email(message: str, email: str, *args, **kwargs) -> str:
@@ -47,9 +48,3 @@ def import_shop_data(partner_id, url):
             ProductParameter.objects.create(product_info_id=product_info.id,
                                             parameter_id=parameter_object.id,
                                             value=value)
-            
-@app.task()
-def get_user_image(request):
-    if request.method == 'POST':
-        form = UploadFile.obje
-    requests.FILES()

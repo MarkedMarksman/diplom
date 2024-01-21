@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django_rest_passwordreset.tokens import get_token_generator
-
+from versatileimagefield.fields import VersatileImageField,PPOIField
 
 STATUS_CHOICES = (
     ('basket', 'Статус корзины'),
@@ -58,11 +58,14 @@ class User(AbstractUser):
     Стандартная модель пользователей
     """
     objects = UserManager()
+    user_avatar = VersatileImageField('avatar',upload_to='avatars/',ppoi_field='user_avatar_ppoi',blank=True,null=True)
+    user_avatar_ppoi = PPOIField()
     full_name = models.CharField(max_length=160,blank=True,null=True)
     email = models.EmailField(verbose_name='Email', max_length=40, unique=True)
     company = models.CharField(verbose_name='Компания', max_length=40, blank=True, null=True)
     position = models.CharField(verbose_name='Должность', max_length=40, blank=True, null=True)
     type = models.CharField(verbose_name='Тип пользователя', choices=USER_TYPE_CHOICES, max_length=40, default='client')
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

@@ -9,7 +9,7 @@ from .models import (
     Order,
 )
 from .models import User, Contact
-
+from versatileimagefield.serializers import VersatileImageFieldSerializer
 
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +29,23 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'full_name','email', 'company', 'position', 'type', 'contacts')
         read_only_fields = ('id',)
 
+class UserAvatarSerializer(VersatileImageFieldSerializer):
+    avatar = VersatileImageFieldSerializer(
+        sizes=[
+            ('full_size', 'url'),
+            ('thumbnail', 'thumbnail__100x100'),
+            ('medium_square_crop', 'crop__400x400'),
+            ('small_square_crop', 'crop__50x50')
+        ]
+    )
 
+    class Meta:
+        model = User
+        fields = (
+            'full_name',
+        )
+    
+    
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category

@@ -18,11 +18,12 @@ from requests import get
 from rest_framework.permissions import IsAuthenticated
 from .models import Category, Shop, ProductInfo, Order, OrderItem, Product, ProductParameter, Parameter
 from .models import Contact, ConfirmEmailToken
-from .serializers import CategorySerializer, ShopSerializer, ProductInfoSerializer, OrderSerializer, OrderItemSerializer, UserSerializer, ContactSerializer
-from .tasks import import_shop_data
+from .serializers import CategorySerializer, ShopSerializer, ProductInfoSerializer, OrderSerializer, OrderItemSerializer, UserSerializer, ContactSerializer,UserAvatarSerializer
+from .tasks import *
 from .signals import new_user_registered, new_order
 from drf_spectacular.utils import extend_schema
 from django.shortcuts import render
+from .forms import UserAvatar
 
 
 class RegisterAccount(APIView):
@@ -69,6 +70,17 @@ class RegisterAccount(APIView):
 def auth(request):
     return render(request, 'oauth.html')
 
+def upload_new_avatar(request):      
+    if request.method == 'POST':
+        form = UserAvatar(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        else:
+            context = {'form':UserAvatar()}
+            return render(request,'upload_avatar.html', context)
+    context = {'form':UserAvatar()}
+    return render(request,'upload_avatar.html', context)
+        
 class ConfirmAccount(APIView):
     """
     Класс для подтверждения почтового адреса

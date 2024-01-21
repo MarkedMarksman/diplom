@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'social_django',
+    'versatileimagefield',
     'baton.autodiscover'
 ]
 
@@ -234,5 +235,8 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_POSTGRES_JSONFIELD = True
 
-SOCIAL_AUTH_GITHUB_KEY = 'bb68bd856a03a3bd9522'
-SOCIAL_AUTH_GITHUB_SECRET = 'e00d51eaf60484bd960ae7b0685698ed2fd28b4b'
+SOCIAL_AUTH_GITHUB_KEY = ''
+SOCIAL_AUTH_GITHUB_SECRET = ''
+
+#AVATARS
+MEDIA_DIR = BASE_DIR / 'media'
